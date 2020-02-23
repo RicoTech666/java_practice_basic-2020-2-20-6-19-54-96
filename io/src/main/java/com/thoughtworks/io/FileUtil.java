@@ -18,7 +18,7 @@ public class FileUtil {
      * 例如把a文件夹(a文件夹下有1.txt和一个空文件夹c)复制到b文件夹，复制完成以后b文件夹下也有一个1.txt和空文件夹c
      */
     public static void copyDirectory(File from, File to) {
-        checkToStatus(to);
+        emptyDestinationDirectory(to);
         for (File file : Objects.requireNonNull(from.listFiles())) {
             if (file.isDirectory()) {
                 copyDirectory(new File(from.getAbsolutePath() + File.separator + file.getName()),
@@ -30,7 +30,7 @@ public class FileUtil {
         }
     }
 
-    private static void checkToStatus(File to) {
+    private static void emptyDestinationDirectory(File to) {
         if (!to.exists()) {
             to.mkdir();
         } else {
@@ -51,7 +51,7 @@ public class FileUtil {
                 fos.write(bytes, 0, len);
             }
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
